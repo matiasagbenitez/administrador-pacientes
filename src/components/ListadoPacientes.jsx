@@ -7,7 +7,7 @@ export const ListadoPacientes = ({
   eliminarPaciente,
 }) => {
   return (
-    <div className="md:w-1/2 mx-3 mt-5 md:mt-0">
+    <div className="md:w-1/2 mx-5 mt-5 md:mt-0">
       {pacientes && pacientes.length ? (
         <>
           <h2 className="font-black text-xl text-center">

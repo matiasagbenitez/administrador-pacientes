@@ -101,7 +101,7 @@ export const Formulario = ({
   };
 
   return (
-    <div className="md:w-1/2 mx-3">
+    <div className="md:w-1/2 mx-5">
       <h2 className="font-black text-xl text-center">Seguimiento pacientes</h2>
       <p className="text-center text-sm my-3">
         Añade pacientes y {""}
