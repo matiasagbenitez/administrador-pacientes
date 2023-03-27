@@ -26,12 +26,24 @@ function App() {
   const [pacientes, setPacientes] = useState(listaPacientes);
   const [paciente, setPaciente] = useState({});
 
+  const eliminarPaciente = (id) => {
+    const pacientesFiltrados = pacientes.filter(
+      (paciente) => paciente.id !== id
+    );
+    setPacientes([...pacientesFiltrados]);
+  };
+
   return (
     <div className="container mx-auto my-5">
       <Header />
       <div className="mt-10 md:flex gap-3">
-        <Formulario pacientes={pacientes} setPacientes={setPacientes} paciente={paciente} setPaciente={setPaciente} />
-        <ListadoPacientes pacientes={pacientes} setPaciente={setPaciente} />
+        <Formulario
+          pacientes={pacientes}
+          setPacientes={setPacientes}
+          paciente={paciente}
+          setPaciente={setPaciente}
+        />
+        <ListadoPacientes pacientes={pacientes} setPaciente={setPaciente} eliminarPaciente={eliminarPaciente} />
       </div>
     </div>
   );

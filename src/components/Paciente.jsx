@@ -1,5 +1,12 @@
-export const Paciente = ({ paciente, setPaciente }) => {
+export const Paciente = ({ paciente, setPaciente, eliminarPaciente }) => {
   const { id, nombre, propietario, email, fechaAlta, sintomas } = paciente;
+
+  const handleEliminarPaciente = () => {
+    setTimeout(() => {
+      eliminarPaciente(id);
+    }, 1000);
+  };
+
   return (
     <div className="bg-white p-5 rounded-lg mb-2">
       <p className="font-bold mb-1 text-gray-700 uppercase text-sm">
@@ -35,6 +42,7 @@ export const Paciente = ({ paciente, setPaciente }) => {
         <button
           type="button"
           className="bg-red-600 text-white p-1 w-full rounded-md uppercase font-bold mt-2 text-sm"
+          onClick={handleEliminarPaciente}
         >
           Eliminar
         </button>

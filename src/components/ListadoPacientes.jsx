@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { Paciente } from "./Paciente";
 
-export const ListadoPacientes = ({ pacientes, setPaciente }) => {
+export const ListadoPacientes = ({ pacientes, setPaciente, eliminarPaciente }) => {
   return (
     <div className="md:w-1/2 mx-3 mt-5 md:mt-0">
       {pacientes && pacientes.length ? (
@@ -16,7 +16,7 @@ export const ListadoPacientes = ({ pacientes, setPaciente }) => {
 
           <div className="md:h-screen overflow-y-scroll">
             {pacientes.map((paciente) => {
-              return <Paciente key={paciente.id} paciente={paciente} setPaciente={setPaciente} />;
+              return <Paciente key={paciente.id} paciente={paciente} setPaciente={setPaciente} eliminarPaciente={eliminarPaciente}/>;
             })}
           </div>
         </>
