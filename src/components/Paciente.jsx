@@ -1,10 +1,29 @@
+import Swal from "sweetalert2";
+import "sweetalert2/dist/sweetalert2.min.css";
+
 export const Paciente = ({ paciente, setPaciente, eliminarPaciente }) => {
   const { id, nombre, propietario, email, fechaAlta, sintomas } = paciente;
 
   const handleEliminarPaciente = () => {
-    setTimeout(() => {
-      eliminarPaciente(id);
-    }, 1000);
+    Swal.fire({
+      title: "¿Deseas eliminar este registro?",
+      text: "¡No podrás revertir esta acción!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#5561E5",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Sí, eliminar!",
+      cancelButtonText: "Cancelar",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        eliminarPaciente(id);
+        Swal.fire(
+          "¡Eliminado!",
+          "El registro se eliminó correctamente del sistema.",
+          "success"
+        );
+      }
+    });
   };
 
   return (

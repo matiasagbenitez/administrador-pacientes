@@ -1,6 +1,28 @@
 import { useState, useEffect } from "react";
 import { ErrorFormulario } from "./ErrorFormulario";
 
+import Swal from "sweetalert2";
+import "sweetalert2/dist/sweetalert2.min.css";
+
+const alert = (icon = "success", title = "Signed in successfully") => {
+  const Toast = Swal.mixin({
+    toast: true,
+    position: "top-end",
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.addEventListener("mouseenter", Swal.stopTimer);
+      toast.addEventListener("mouseleave", Swal.resumeTimer);
+    },
+  });
+
+  Toast.fire({
+    icon: icon,
+    title: title,
+  });
+};
+
 export const Formulario = ({
   pacientes,
   setPacientes,
@@ -54,6 +76,7 @@ export const Formulario = ({
 
       setPacientes([...pacientesActualizados]);
       setPaciente({});
+      alert("success", "Paciente editado con éxito");
     } else {
       const objetoPaciente = {
         id: Date.now(),
@@ -64,6 +87,7 @@ export const Formulario = ({
         sintomas,
       };
       setPacientes([...pacientes, objetoPaciente]);
+      alert("success", "Paciente agregado con éxito");
     }
 
     // REINICIAR FORM

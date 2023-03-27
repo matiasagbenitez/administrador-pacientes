@@ -1,30 +1,24 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Header } from "./components/Header";
 import { Formulario } from "./components/Formulario";
 import { ListadoPacientes } from "./components/ListadoPacientes";
 
-const listaPacientes = [
-  {
-    id: 1,
-    nombre: "Toby",
-    propietario: "Juan",
-    email: "juan@correo.com",
-    fechaAlta: "2021-01-01",
-    sintomas: "No come",
-  },
-  {
-    id: 2,
-    nombre: "Luna",
-    propietario: "Pepe",
-    email: "pepe@correo.com",
-    fechaAlta: "2022-10-11",
-    sintomas: "No duerme",
-  },
-];
-
 function App() {
-  const [pacientes, setPacientes] = useState(listaPacientes);
+  const [pacientes, setPacientes] = useState([]);
   const [paciente, setPaciente] = useState({});
+
+  // LOCAL STORAGE
+  useEffect(() => {
+    const obtenerLS = () => {
+      const pacientesLS = JSON.parse(localStorage.getItem("pacientes"));
+      pacientesLS?.length > 0 && setPacientes(pacientesLS);
+    };
+    obtenerLS();
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("pacientes", JSON.stringify(pacientes));
+  }, [pacientes]);
 
   const eliminarPaciente = (id) => {
     const pacientesFiltrados = pacientes.filter(
@@ -43,7 +37,11 @@ function App() {
           paciente={paciente}
           setPaciente={setPaciente}
         />
-        <ListadoPacientes pacientes={pacientes} setPaciente={setPaciente} eliminarPaciente={eliminarPaciente} />
+        <ListadoPacientes
+          pacientes={pacientes}
+          setPaciente={setPaciente}
+          eliminarPaciente={eliminarPaciente}
+        />
       </div>
     </div>
   );
