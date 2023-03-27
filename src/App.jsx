@@ -30,7 +30,7 @@ function App() {
     <div className="container mx-auto my-5">
       <Header />
       <div className="mt-10 md:flex gap-3">
-        <Formulario pacientes={pacientes} setPacientes={setPacientes} paciente={paciente} />
+        <Formulario pacientes={pacientes} setPacientes={setPacientes} paciente={paciente} setPaciente={setPaciente} />
         <ListadoPacientes pacientes={pacientes} setPaciente={setPaciente} />
       </div>
     </div>

@@ -1,7 +1,12 @@
 import { useState, useEffect } from "react";
 import { ErrorFormulario } from "./ErrorFormulario";
 
-export const Formulario = ({ pacientes, setPacientes, paciente }) => {
+export const Formulario = ({
+  pacientes,
+  setPacientes,
+  paciente,
+  setPaciente,
+}) => {
   // STATES
   const [nombre, setNombre] = useState("");
   const [propietario, setPropietario] = useState("");
@@ -9,10 +14,18 @@ export const Formulario = ({ pacientes, setPacientes, paciente }) => {
   const [fechaAlta, setFechaAlta] = useState("");
   const [sintomas, setSintomas] = useState("");
   const [error, setError] = useState(false);
+  const [modoEdicion, setModoEdicion] = useState(false);
 
   // USE EFFECT
   useEffect(() => {
-    
+    if (Object.keys(paciente).length > 0) {
+      setModoEdicion(true);
+      setNombre(paciente.nombre);
+      setPropietario(paciente.propietario);
+      setEmail(paciente.email);
+      setFechaAlta(paciente.fechaAlta);
+      setSintomas(paciente.sintomas);
+    }
   }, [paciente]);
 
   const handleSubmit = (e) => {
@@ -25,16 +38,33 @@ export const Formulario = ({ pacientes, setPacientes, paciente }) => {
     }
 
     // OBJETO
-    const objetoPaciente = {
-      id: Date.now(),
-      nombre,
-      propietario,
-      email,
-      fechaAlta,
-      sintomas,
-    };
+    if (modoEdicion) {
+      const objetoPaciente = {
+        id: paciente.id,
+        nombre,
+        propietario,
+        email,
+        fechaAlta,
+        sintomas,
+      };
 
-    setPacientes([...pacientes, objetoPaciente]);
+      const pacientesActualizados = pacientes.map((pacienteState) =>
+        pacienteState.id === objetoPaciente.id ? objetoPaciente : pacienteState
+      );
+
+      setPacientes([...pacientesActualizados]);
+      setPaciente({});
+    } else {
+      const objetoPaciente = {
+        id: Date.now(),
+        nombre,
+        propietario,
+        email,
+        fechaAlta,
+        sintomas,
+      };
+      setPacientes([...pacientes, objetoPaciente]);
+    }
 
     // REINICIAR FORM
     setNombre("");
@@ -43,6 +73,7 @@ export const Formulario = ({ pacientes, setPacientes, paciente }) => {
     setFechaAlta("");
     setSintomas("");
     setError(false);
+    setModoEdicion(false);
   };
 
   return (
@@ -114,7 +145,7 @@ export const Formulario = ({ pacientes, setPacientes, paciente }) => {
             htmlFor="alta"
             className="block text-gray-700 font-bold uppercase"
           >
-            Alta
+            Fecha alta
           </label>
           <input
             type="date"
@@ -143,7 +174,7 @@ export const Formulario = ({ pacientes, setPacientes, paciente }) => {
         <input
           type="submit"
           className="bg-indigo-600 w-full p-3 text-white font-bold uppercase hover:bg-indigo-800 rounded-lg cursor-pointer transition:all duration-300 ease-in-out"
-          value="Agregar paciente"
+          value={modoEdicion ? "Editar paciente" : "Agregar paciente"}
         />
       </form>
     </div>
