@@ -15,8 +15,7 @@ Once you have installed the dependencies, you can run the server locally. To do 
 
 `npm run dev`
 
-This will start the server and open a browser window with the application. From there, you can use the search bar to search for GIFs on Giphy.
-
+This will start the server and open a browser window with the application.
 ## Contribution
 
 If you would like to contribute to this project, let us know! You can submit a pull request or open an issue on this repository.
